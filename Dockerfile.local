@@ -1,0 +1,20 @@
+# build: docker build -t $(basename $(pwd))-local -f Dockerfile.local .
+# run: docker run -p 9080:8080 -ti --rm -v $(pwd):/opt/app $(basename $(pwd))-local
+
+FROM python:3.6-alpine
+EXPOSE 8080/tcp
+
+# For non-Alpine / Busybox containers
+#RUN adduser --disabled-password --gecos 'application runner' app
+RUN adduser -D -g 'application runner' app
+
+RUN mkdir /opt/app
+WORKDIR /opt/app
+RUN apk add gcc
+RUN apk add libc-dev
+RUN pip install pipenv
+
+ADD docker-local-entry.sh /docker-local-entry.sh
+
+USER app
+ENTRYPOINT [ "/bin/sh", "/docker-local-entry.sh" ]
