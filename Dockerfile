@@ -19,5 +19,5 @@ RUN pipenv install --deploy --system
 #RUN apk del gcc
 
 USER app
-ENTRYPOINT [ "pipenv", "run", "gunicorn", "-c", "gunicorn.conf.py", "--log-config", "logging.conf", "wsgi:app"]
+ENTRYPOINT [ "pipenv", "run", "gunicorn", "-c", "gunicorn.conf.py", "--log-config", "logging.conf", "wsgi:handler"]
 

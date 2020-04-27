@@ -2,6 +2,8 @@
 '''WSGI entry'''
 import app
 
+handler = app.create_app()
+
 if __name__ == '__main__':
     # Entry point when run via Python interpreter.
     print("== Running in debug mode ==")
